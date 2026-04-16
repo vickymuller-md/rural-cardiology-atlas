@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --color-terminal: #faf6ee;
+  --color-terminal-deep: #f2ecde;
+  --color-panel: #ffffff;
+  --color-panel-hi: #efe9dd;
+  --color-grid: #e3dcd0;
+  --color-grid-hi: #c5bcac;
+  --color-cool: #0f2544;
+  --color-stone: #7a8593;
+  --color-signal: #2e6f5e;
+  --color-signal-deep: #1e4e41;
+  --color-alert: #ff6b55;
+  --color-alert-deep: #e04a35;
+  --color-critical: #d63a20;
+
+  /* Choropleth scale — 0 → 5+ cardiologists (sequential, warm to cool) */
+  --color-choro-0: #d63a20;  /* Critical — zero cardiologists */
+  --color-choro-1: #ff9a6b;
+  --color-choro-2: #f2c86a;
+  --color-choro-3: #a6c487;
+  --color-choro-4: #2e6f5e;
+
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  --background: #faf6ee;
+  --foreground: #0f2544;
+  --card: #ffffff;
+  --border: #e3dcd0;
+  --muted: #efe9dd;
+  --muted-foreground: #7a8593;
+}
+
+* {
+  border-color: var(--color-grid);
+}
+
+html, body {
+  background: var(--color-terminal);
+  color: var(--color-cool);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Thin divider between header and the map */
+.atlas-divider {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-grid-hi) 20%,
+    var(--color-grid-hi) 80%,
+    transparent 100%
+  );
+}
+
+/* County hover/focus ring */
+.atlas-county {
+  transition: filter 120ms ease-out, stroke-width 120ms ease-out;
+  cursor: pointer;
+  outline: none;
+}
+.atlas-county:hover,
+.atlas-county:focus {
+  filter: brightness(1.08);
+  stroke-width: 1.2;
+}
+.atlas-county.is-selected {
+  stroke: var(--color-cool);
+  stroke-width: 1.6;
+}
+
+/* State boundaries on top of counties */
+.atlas-state {
+  fill: none;
+  stroke: var(--color-grid-hi);
+  stroke-width: 0.6;
+  pointer-events: none;
+}
+
+/* Focus outlines */
+:where(button, [role="button"], a):focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Print — clean single-page county report */
+@media print {
+  @page { size: letter; margin: 0.6in; }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  nav, button, .no-print { display: none !important; }
+  body { background: white; }
+}

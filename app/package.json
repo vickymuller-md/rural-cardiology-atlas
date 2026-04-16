@@ -1,0 +1,50 @@
+{
+  "name": "rural-cardiology-atlas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive US map visualizing cardiology access gaps — Rural Cardiology Desert Atlas",
+  "homepage": "https://atlas.heartlandprotocol.org",
+  "author": "Vicky Muller Ferreira, MD <vickymuller@heartlandprotocol.org>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run --reporter=verbose",
+    "test:watch": "vitest --reporter=verbose",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vnedyalk0v/react19-simple-maps": "^2.0.2",
+    "clsx": "^2.1.1",
+    "d3-scale": "^4.0.2",
+    "lucide-react": "^1.7.0",
+    "next": "^16.2.1",
+    "nuqs": "^2.6.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.5.0",
+    "topojson-client": "^3.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/d3-scale": "^4.0.9",
+    "@types/geojson": "^7946.0.14",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/topojson-client": "^3.1.5",
+    "@types/topojson-specification": "^1.0.5",
+    "@vitejs/plugin-react": "^6.0.1",
+    "jsdom": "^29.0.1",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.2"
+  }
+}

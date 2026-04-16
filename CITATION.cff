@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this atlas or its derived dataset, please cite it as below."
+title: "Rural Cardiology Desert Atlas"
+abstract: >
+  Open-source interactive visualization of the cardiology access gap
+  across every United States county. Combines CMS NPPES, CMS Hospital
+  General Information, CDC heart disease mortality, US Census ACS,
+  USDA RUCC, HRSA HPSA, and US Census gazetteer geometry into a single
+  county-level record consumed by a Next.js application published at
+  atlas.heartlandprotocol.org.
+type: software
+authors:
+  - family-names: Muller Ferreira
+    given-names: Vicky
+    orcid: "https://orcid.org/0009-0009-1099-5690"
+    affiliation: "Independent Clinical Researcher"
+url: "https://atlas.heartlandprotocol.org"
+repository-code: "https://github.com/vickymuller-md/rural-cardiology-atlas"
+license: MIT
+keywords:
+  - rural health
+  - cardiology
+  - heart failure
+  - access to care
+  - Critical Access Hospital
+  - HPSA
+  - health geography
+  - public health visualization

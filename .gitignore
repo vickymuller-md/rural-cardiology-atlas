@@ -1,0 +1,49 @@
+# Node / Next.js
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.python-version
+.ruff_cache/
+.mypy_cache/
+
+# Data pipeline — raw & interim files are huge and reproducible from scripts
+scripts/data/raw/
+scripts/data/interim/
+scripts/data/MANIFEST.json
+
+# Keep processed outputs tracked (the shippable artifact)
+!scripts/data/processed/
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Tests
+coverage/
+*.log
+
+# GSD planning
+.planning/

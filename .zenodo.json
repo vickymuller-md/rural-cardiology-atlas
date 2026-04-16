@@ -1,0 +1,44 @@
+{
+  "title": "Rural Cardiology Desert Atlas — Interactive US County Map of Cardiology Access Gaps",
+  "description": "Open-source interactive visualization and derived public dataset mapping the cardiology access gap across every county in the United States. Combines the CMS NPPES provider registry, CMS hospital data, CDC heart disease mortality, US Census ACS demographics, USDA Rural-Urban Continuum Codes, HRSA HPSA designations, and US Census ZCTA/county gazetteer geometry into a single county-level record used by the public atlas at atlas.heartlandprotocol.org. Built with Next.js 16, React 19, TypeScript, Tailwind v4, react-simple-maps, and a reproducible Python data pipeline. No patient health information. Created as a companion resource to the HEARTLAND Protocol for primary care-led heart failure management in rural US settings.",
+  "creators": [
+    {
+      "name": "Muller Ferreira, Vicky",
+      "affiliation": "Independent Clinical Researcher",
+      "orcid": "0009-0009-1099-5690"
+    }
+  ],
+  "keywords": [
+    "rural health",
+    "cardiology",
+    "heart failure",
+    "health disparities",
+    "access to care",
+    "Critical Access Hospital",
+    "HPSA",
+    "health geography",
+    "choropleth",
+    "open data",
+    "public health visualization"
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.18566403",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.17605/OSF.IO/YUSGH",
+      "relation": "isDerivedFrom",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    }
+  ],
+  "communities": [{ "identifier": "open-science" }],
+  "notes": "This atlas uses only publicly available aggregate data and contains no patient health information. County-level provider counts reflect primary practice ZIP codes reported to CMS NPPES and do not reflect part-time, locum, or telehealth availability. Distance is computed between county centroids and ZIP centroids; values inside very large urban ZIPs are intentionally coarse."
+}

@@ -1,0 +1,50 @@
+name: Monthly data refresh
+
+on:
+  schedule:
+    # 8th of each month at 04:00 UTC — after CMS typically posts the monthly NPPES dump
+    - cron: "0 4 8 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python 3.12
+        run: uv python install 3.12
+
+      - name: Run pipeline
+        working-directory: scripts
+        run: |
+          uv sync
+          uv run python run_all.py
+
+      - name: Copy refreshed counties.json into app
+        run: |
+          mkdir -p app/public/data
+          cp scripts/data/processed/counties.json app/public/data/counties.json
+
+      - name: Create pull request on change
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: data/monthly-refresh
+          title: "data: monthly refresh of counties.json"
+          commit-message: "data: monthly refresh of counties.json"
+          body: |
+            Automated monthly pipeline run. Diff against `public/data/counties.json`.
+          add-paths: |
+            app/public/data/counties.json
+            scripts/data/MANIFEST.json
+          delete-branch: true
