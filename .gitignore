@@ -47,3 +47,6 @@ coverage/
 
 # GSD planning
 .planning/
+
+# Workflow files staged locally until gh auth has 'workflow' scope
+.pending-workflows/
