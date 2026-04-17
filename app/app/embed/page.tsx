@@ -9,7 +9,7 @@ export default async function EmbedPage() {
   const { list, index } = await loadCounties();
   return (
     <NuqsAdapter>
-      <div className="flex flex-col gap-3 py-4">
+      <div className="mx-auto flex max-w-[1400px] flex-col gap-3 px-4 py-4">
         <Suspense fallback={<div className="h-[600px] rounded-lg border border-[var(--color-grid)] bg-[var(--color-panel)]" />}>
           <Atlas list={list} index={index} />
         </Suspense>
