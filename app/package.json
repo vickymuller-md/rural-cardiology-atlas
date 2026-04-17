@@ -16,7 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@heartland/ui": "github:vickymuller-md/heartland-ui#v0.1.1",
+    "@heartland/ui": "github:vickymuller-md/heartland-ui#v0.2.0",
     "@types/d3-geo": "^3.1.0",
     "@vnedyalk0v/react19-simple-maps": "^2.0.2",
     "clsx": "^2.1.1",

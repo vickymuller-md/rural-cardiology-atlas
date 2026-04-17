@@ -12,7 +12,7 @@ const geistSans = Geist({
 
 const sora = Sora({
   variable: "--font-editorial",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -66,17 +66,22 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${sora.variable} ${instrumentSerif.variable}`}
     >
-      <body className="min-h-screen bg-[var(--color-terminal)] font-[var(--font-editorial)] text-[var(--color-cool)] antialiased selection:bg-[var(--color-alert)]/40 selection:text-[var(--color-cool)]">
+      <body className="min-h-screen flex flex-col bg-terminal font-editorial text-cool antialiased selection:bg-alert/40 selection:text-cool">
         <Masthead
           currentSite="atlas"
           navItems={[{ label: "Methodology", href: "/about" }]}
-          cta={{
-            label: "View source",
+          secondaryCta={{
+            label: "GitHub",
             href: "https://github.com/vickymuller-md/rural-cardiology-atlas",
             external: true,
           }}
+          cta={{
+            label: "Read the protocol",
+            href: "https://doi.org/10.5281/zenodo.18566403",
+            external: true,
+          }}
         />
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
         <Colophon
           currentSite="atlas"
           description="Interactive US map visualizing county-level cardiology access gaps. Aggregate public data only — no patient health information. County provider counts do not reflect part-time, locum, or telehealth availability."
