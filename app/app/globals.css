@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "@heartland/ui/css/theme.css";
+
+@source "../../node_modules/@heartland/ui/dist/**/*.{js,mjs}";
 
 @theme inline {
   --font-sans: var(--font-sans);
