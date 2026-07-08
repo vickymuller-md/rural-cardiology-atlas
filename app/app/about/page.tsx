@@ -36,6 +36,17 @@ export default function AboutPage() {
           journalists.
         </p>
 
+        <h2>Current data build</h2>
+        <p>
+          This release was built from the <strong>NPPES April 2026 monthly
+          file</strong> (retrieved April 16, 2026) together with the companion
+          datasets below. Under this method, <strong>1,810 of 3,144 US
+          counties (57.6%)</strong> have zero practicing cardiologists. The
+          published build is version-pinned to the archived release (Zenodo
+          DOI 10.5281/zenodo.19634991), so the figures shown here always
+          correspond to a citable snapshot.
+        </p>
+
         <h2>Data sources</h2>
         <ul>
           <li>
@@ -96,7 +107,22 @@ export default function AboutPage() {
           hospitals weekly, Census ACS annually, USDA RUCC every 10 years (most
           recent release 2023), CDC mortality every few years. A GitHub Action
           re-runs the pipeline monthly and opens a pull request when
-          <code> counties.json </code> changes.
+          <code> counties.json </code> changes. Refreshes are merged only
+          after review, so the published figures never change silently.
+        </p>
+
+        <h2>How this count relates to published estimates</h2>
+        <p>
+          A 2024 research letter in the <em>Journal of the American College of
+          Cardiology</em> (Kim JH et al., DOI 10.1016/j.jacc.2024.04.054)
+          reported 1,454 of 3,143 counties (46.3%) without a practicing
+          cardiologist. This atlas identifies 1,810 of 3,144 counties (57.6%)
+          under its own documented method. The two figures are complementary,
+          not contradictory: county counts shift with data year,
+          provider-location source, specialty-taxonomy inclusion,
+          active-practice filtering, and county assignment. This atlas favors
+          a strict, fully reproducible public-data pipeline; the JACC letter
+          remains the independent peer-reviewed national estimate.
         </p>
 
         <h2>Limitations</h2>
@@ -135,7 +161,8 @@ export default function AboutPage() {
         <p>
           Related publication: Muller Ferreira V. &quot;HEARTLAND Protocol:
           Heart failure Evidence-based Access in Rural Treatment, Linking
-          Advanced Network Delivery.&quot; Cureus, 2026.
+          Advanced Network Delivery.&quot; Cureus 18(3):e104817, 2026. DOI
+          10.7759/cureus.104817 &middot; PMID 41948265.
         </p>
 
         <h2>License</h2>
