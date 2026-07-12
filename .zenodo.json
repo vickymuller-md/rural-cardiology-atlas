@@ -1,6 +1,6 @@
 {
-  "title": "Rural Cardiology Desert Atlas — Interactive US County Map of Cardiology Access Gaps",
-  "description": "Open-source interactive visualization and derived public dataset mapping the cardiology access gap across every county in the United States. Combines the CMS NPPES provider registry, CMS hospital data, CDC heart disease mortality, US Census ACS demographics, USDA Rural-Urban Continuum Codes, HRSA HPSA designations, and US Census ZCTA/county gazetteer geometry into a single county-level record used by the public atlas at atlas.heartlandprotocol.org. Built with Next.js 16, React 19, TypeScript, Tailwind v4, react-simple-maps, and a reproducible Python data pipeline. No patient health information. Created as a companion resource to the HEARTLAND Protocol for primary care-led heart failure management in rural US settings.",
+  "title": "Rural Cardiology Desert Atlas — Versioned US County Planning Map of Cardiology Access",
+  "description": "Version 0.2.0 of an open-source county-level research and planning atlas of adult-cardiology access in the United States. The exact 3,144-county release combines qualifying individual, active, primary-taxonomy CMS NPPES records; CMS Provider of Services hospital and Critical Access Hospital data; a preserved Census batch-geocoder snapshot; authenticated HUD-USPS 2025 Q4 same-state fallback; Census 2025 Gazetteer/TIGER geography; ACS 2024 five-year demographics; the CDC PLACES 2025 release (2023 estimate year) of coronary-heart-disease prevalence; USDA RUCC 2023; and a pinned HRSA primary-care HPSA snapshot. Counts describe qualifying NPPES-listed mapped locations, not verified availability, full-time equivalents, board certification, telehealth coverage, quality, or outcomes. Distances are straight-line geographic estimates, not road distance or travel time. The release contains no patient health information and is a companion planning resource to the HEARTLAND Protocol.",
   "creators": [
     {
       "name": "Muller Ferreira, Vicky",
@@ -27,7 +27,7 @@
   "language": "eng",
   "related_identifiers": [
     {
-      "identifier": "10.5281/zenodo.18566403",
+      "identifier": "10.5281/zenodo.19101219",
       "relation": "isSupplementTo",
       "resource_type": "publication-article",
       "scheme": "doi"
@@ -40,5 +40,5 @@
     }
   ],
   "communities": [{ "identifier": "open-science" }],
-  "notes": "This atlas uses only publicly available aggregate data and contains no patient health information. County-level provider counts reflect primary practice ZIP codes reported to CMS NPPES and do not reflect part-time, locum, or telehealth availability. Distance is computed between county centroids and ZIP centroids; values inside very large urban ZIPs are intentionally coarse."
+  "notes": "This atlas uses public administrative and aggregate sources and contains no patient health information. NPPES addresses may be stale or administrative. HUD fallback provides a county proxy rather than a verified street-level practice location. The atlas is not a provider directory, referral tool, clinical decision system, or measure of appointment capacity, workforce availability, travel time, quality of care, or patient outcomes. Results and hashes are version-specific."
 }

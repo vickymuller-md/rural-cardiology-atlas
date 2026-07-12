@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "phase": "2A",
+  "derivationStatus": "pending_phase_2b_source_materialization_and_integrator_authorization",
+  "authorizationReceiptSha256": null,
+  "phase2bAuthorization": {
+    "model": "external_hash_identified_receipt",
+    "requiredStatus": "AUTHORIZED_PHASE_2B",
+    "topologyConfigManifestPath": "tooling/topology/topology-contract.json",
+    "requiredDependencyStatus": "verified_frozen"
+  },
+  "analyticalUse": "forbidden_display_only",
+  "runtime": {
+    "node": "22.17.0",
+    "npm": "10.9.2"
+  },
+  "dependencyMaterialization": {
+    "status": "offline_lock_present_exact_runtime_install_and_cache_freeze_pending_phase_2b",
+    "requiredLockfile": "tooling/topology/package-lock.json",
+    "requiredLockfileVersion": 3,
+    "requiredLockfileSha256": "89f33ff6eee602303122263260f8b3bda3222e526dfecc16edd6b9e908278125",
+    "lockOrigin": "generated_from_existing_local_npm_cache_with_offline_mode_in_phase_2a",
+    "exactPinnedRuntimeInstallVerification": "pending_phase_2b",
+    "installCommand": "npm ci --offline --ignore-scripts",
+    "requiredAuthorizedStatus": "verified_frozen",
+    "networkAllowed": false
+  },
+  "tools": {
+    "mapshaper": {
+      "version": "0.7.41",
+      "executable": "./node_modules/.bin/mapshaper",
+      "packageUrl": "https://registry.npmjs.org/mapshaper/-/mapshaper-0.7.41.tgz",
+      "packageBytes": 3786772,
+      "packageSha256": "770018b5c6fb29e001c52613251de9df618cd9d7a3bf2e947f962749e77c13d5",
+      "npmIntegrity": "sha512-TC1KL8OtYZPRuq/Wl0AW2LQOic/q/AQbEEiPkCXlN5dGFXPIRj8+Qllc3EWBhN7aViHStI2IIthP2/L7BDzobQ=="
+    },
+    "topojsonClient": {
+      "version": "3.1.0",
+      "purpose": "materialize every output feature and reject null or non-polygon geometry",
+      "packageUrl": "https://registry.npmjs.org/topojson-client/-/topojson-client-3.1.0.tgz",
+      "npmIntegrity": "sha512-605uxS6bcYxGXw9qi62XyrV6Q3xwbndjachmNxu8HWTtVPxZfEJN9fd/SZS1Q54Sn2y0TMyMxFj/cJINqGHrKw==",
+      "packageIdentityStatus": "locked_offline_install_and_cache_freeze_pending_phase_2b"
+    }
+  },
+  "sources": {
+    "counties": {
+      "pin": "CENSUS-CB-COUNTY-2025-5M",
+      "archiveFile": "cb_2025_us_county_5m.zip",
+      "archiveBytes": 2983552,
+      "archiveSha256": "faec522080681e79be5be435c981009a77891206ff8a7f1d142f3bf5da9ebd74",
+      "inputShapefile": "cb_2025_us_county_5m.shp",
+      "sourceFeatureCount": 3235,
+      "extractedMemberIdentityStatus": "pending_phase_2b_authorized_extraction",
+      "extractedMembers": []
+    },
+    "states": {
+      "pin": "CENSUS-CB-STATE-2025-5M",
+      "archiveFile": "cb_2025_us_state_5m.zip",
+      "archiveBytes": 1120533,
+      "archiveSha256": "8a45692bc532dbd38938a1924f445850cef2682ea67d750d7fd2f19cfe836903",
+      "inputShapefile": "cb_2025_us_state_5m.shp",
+      "sourceFeatureCount": 56,
+      "extractedMemberIdentityStatus": "pending_phase_2b_authorized_extraction",
+      "extractedMembers": []
+    }
+  },
+  "generation": {
+    "encoding": "utf8",
+    "excludedStateFips": [
+      "60",
+      "66",
+      "69",
+      "72",
+      "78"
+    ],
+    "sortField": "GEOID",
+    "retainedFields": [
+      "GEOID"
+    ],
+    "projection": "wgs84",
+    "format": "topojson",
+    "quantization": 100000,
+    "idField": "GEOID",
+    "dropTable": true,
+    "force": true,
+    "additionalSimplification": false,
+    "independentDerivations": 2
+  },
+  "canonicalIdList": {
+    "encoding": "utf8",
+    "sort": "ascending_ascii",
+    "separator": "LF",
+    "terminalLf": true
+  },
+  "targets": {
+    "counties": {
+      "source": "counties",
+      "objectName": "counties",
+      "outputFile": "counties-2025-5m.topo.json",
+      "expectedOutputBytes": 1349047,
+      "expectedOutputSha256": "affdae57c1fe33dd5e64ccf1c735f83db830374d5dcff375231a667aa96aa4d5",
+      "expectedFeatureCount": 3144,
+      "idPattern": "^[0-9]{5}$",
+      "universeFile": "county-fips-2025.txt",
+      "expectedIdListSha256": "f2651ec6a9375476e3ff09efb4c2a699cd5690ffd3f0c982aeacad967c21c241",
+      "requiredConnecticutIds": [
+        "09110",
+        "09120",
+        "09130",
+        "09140",
+        "09150",
+        "09160",
+        "09170",
+        "09180",
+        "09190"
+      ],
+      "forbiddenConnecticutIds": [
+        "09001",
+        "09003",
+        "09005",
+        "09007",
+        "09009",
+        "09011",
+        "09013",
+        "09015"
+      ]
+    },
+    "states": {
+      "source": "states",
+      "objectName": "states",
+      "outputFile": "states-2025-5m.topo.json",
+      "expectedOutputBytes": 465345,
+      "expectedOutputSha256": "05a7896dc0cd3be17813dbe7b571e74eafd690a6078a99698aa9a52df01b6bbe",
+      "expectedFeatureCount": 51,
+      "idPattern": "^[0-9]{2}$",
+      "universeFile": "state-fips-2025.txt",
+      "expectedIdListSha256": "aa0c99338dbb5d715b2990eeeeb2e4a5481f6a3285c05981764bf09862af48a4",
+      "requiredConnecticutIds": [],
+      "forbiddenConnecticutIds": []
+    }
+  },
+  "requiredVerification": [
+    "source_archive_size_and_sha256",
+    "exact_runtime_and_tool_versions",
+    "two_independent_clean_derivations",
+    "byte_identical_independent_outputs",
+    "expected_output_size_and_sha256",
+    "exact_single_object_name",
+    "exact_universe_set_equality",
+    "string_feature_ids",
+    "territory_absence",
+    "connecticut_planning_region_regression",
+    "topojson_client_non_null_polygon_materialization"
+  ]
+}

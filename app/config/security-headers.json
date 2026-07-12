@@ -1,0 +1,3 @@
+{
+  "embedContentSecurityPolicy": "connect-src 'self'; frame-ancestors *;"
+}

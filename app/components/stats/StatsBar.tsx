@@ -1,30 +1,30 @@
-import type { NationalStats } from "@/lib/stats";
+import type { NationalSummary } from "@/lib/types";
 
 interface Props {
-  stats: NationalStats;
+  summary: NationalSummary;
 }
 
-export function StatsBar({ stats }: Props) {
+export function StatsBar({ summary }: Props) {
   const tiles: Array<{ label: string; value: string; sub?: string }> = [
     {
-      label: "Counties with zero cardiologists",
-      value: `${stats.zeroCardioCount.toLocaleString("en-US")}`,
-      sub: `of ${stats.total.toLocaleString("en-US")} (${(stats.zeroCardioPct * 100).toFixed(1)}%)`,
+      label: "Areas with zero qualifying providers",
+      value: summary.zero_provider_count.toLocaleString("en-US"),
+      sub: `of ${summary.county_count.toLocaleString("en-US")} (${summary.zero_provider_pct.toFixed(1)}%)`,
     },
     {
-      label: "Median distance — rural counties",
-      value: `${stats.medianRuralDistance.toFixed(1)} mi`,
-      sub: "to nearest cardiologist",
+      label: "Median distance — rural areas",
+      value: `${summary.rural_median_distance_miles.toFixed(1)} mi`,
+      sub: `raw-first median across ${summary.rural_count_with_evaluable_distance.toLocaleString("en-US")} evaluable areas`,
     },
     {
-      label: "CAHs ≥ 20 mi from a cardiologist",
-      value: `${stats.cahFarFromCardiologist.toLocaleString("en-US")}`,
-      sub: "Critical Access Hospitals",
+      label: "CAHs ≥20 mi from a qualifying provider",
+      value: summary.cah_gte_20_miles.toLocaleString("en-US"),
+      sub: `${summary.cah_gte_20_pct_evaluable.toFixed(1)}% among ${summary.cah_evaluable.toLocaleString("en-US")} evaluable in-scope CAHs`,
     },
     {
-      label: "Population in zero-cardio counties",
-      value: stats.populationUnderserved.toLocaleString("en-US"),
-      sub: "residents without a local cardiologist",
+      label: "Population in zero-provider areas",
+      value: summary.population_in_zero_provider_counties.toLocaleString("en-US"),
+      sub: "residents of areas with zero qualifying providers",
     },
   ];
 

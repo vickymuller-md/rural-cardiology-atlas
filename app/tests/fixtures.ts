@@ -1,0 +1,41 @@
+import type { County, NationalSummary } from "@/lib/types";
+
+export function makeCounty(partial: Partial<County> = {}): County {
+  return {
+    fips: "01991",
+    state: "AL",
+    county: "Fixture County",
+    population: 1_000,
+    median_hh_income: 50_000,
+    rucc_2023: 1,
+    rural: false,
+    n_cardiologists: 0,
+    miles_to_nearest_cardiologist: 0,
+    n_hospitals: 0,
+    n_cah: 0,
+    n_cah_20plus_miles_to_nearest_cardiologist: 0,
+    hpsa_primary_care: false,
+    chd_age_adjusted_prevalence_pct: null,
+    ...partial,
+  };
+}
+
+export function makeSummary(partial: Partial<NationalSummary> = {}): NationalSummary {
+  return {
+    counties_json_sha256: "5ca5f17d782cb2835c654ec1c7c70fe967b612f0cffd7235ff81330860c1d20b",
+    provider_locations_sha256: "4bb9245c5c400b691267c79ddad49f42ac960b0514ac945c86345ab55ec186d5",
+    hospital_locations_sha256: "002650b849d73fbf988252f268e098945eeab467084bb63ba37935886602a5ec",
+    county_count: 3,
+    zero_provider_count: 2,
+    zero_provider_pct: 66.7,
+    population_in_zero_provider_counties: 3_000,
+    rural_count_with_evaluable_distance: 2,
+    rural_median_distance_miles: 19.9,
+    cah_total_in_scope: 4,
+    cah_evaluable: 3,
+    cah_unmatched: 1,
+    cah_gte_20_miles: 2,
+    cah_gte_20_pct_evaluable: 66.7,
+    ...partial,
+  };
+}

@@ -11,8 +11,8 @@ export function Legend({ metric }: Props) {
   const entries = legendFor(metric);
   const title =
     metric === "density"
-      ? "Cardiologists per county"
-      : "Miles to nearest cardiologist";
+      ? "Qualifying NPPES-listed providers per area"
+      : "Great-circle miles to nearest qualifying provider";
   return (
     <div className="rounded-md border border-[var(--color-grid)] bg-[var(--color-panel)] p-3 text-xs">
       <p className="mb-2 font-medium uppercase tracking-[0.15em] text-[var(--color-stone)]">

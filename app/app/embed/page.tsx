@@ -3,7 +3,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Atlas } from "@/components/Atlas";
 import { loadCounties } from "@/lib/counties";
 
-export const revalidate = 3600;
+export const dynamic = "force-static";
 
 export default async function EmbedPage() {
   const { list, index } = await loadCounties();

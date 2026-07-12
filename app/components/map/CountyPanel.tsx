@@ -15,7 +15,7 @@ export function CountyPanel({ county, onClose }: Props) {
     return (
       <aside className="rounded-lg border border-[var(--color-grid)] bg-[var(--color-panel)] p-4 text-sm text-[var(--color-stone)]">
         <p className="italic">
-          Click any county on the map to open its access-gap summary.
+          Select any county or county equivalent on the map to open its area summary.
         </p>
       </aside>
     );
@@ -28,12 +28,12 @@ export function CountyPanel({ county, onClose }: Props) {
       value: county.population != null ? formatInt(county.population) : "—",
     },
     {
-      label: "Cardiologists (practice location)",
+      label: "Qualifying NPPES-listed providers",
       value: `${county.n_cardiologists}`,
       warn: county.n_cardiologists === 0,
     },
     {
-      label: "Miles to nearest cardiologist",
+      label: "Great-circle miles to nearest qualifying provider",
       value:
         county.miles_to_nearest_cardiologist != null
           ? `${formatNum(county.miles_to_nearest_cardiologist)} mi`
@@ -49,23 +49,25 @@ export function CountyPanel({ county, onClose }: Props) {
       warn: county.n_cah > 0,
     },
     {
+      label: "CAHs ≥20 mi from nearest qualifying provider",
+      value: `${county.n_cah_20plus_miles_to_nearest_cardiologist}`,
+      warn: county.n_cah_20plus_miles_to_nearest_cardiologist > 0,
+    },
+    {
       label: "HPSA — primary care",
       value: county.hpsa_primary_care ? "Designated" : "No",
       warn: county.hpsa_primary_care,
     },
     {
-      label: "Coronary heart disease (adults, age-adj. %)",
+      label: "Adult CHD prevalence (age-adjusted %)",
       value:
-        county.heart_disease_mortality_per_100k != null
-          ? `${formatNum(county.heart_disease_mortality_per_100k)}%`
+        county.chd_age_adjusted_prevalence_pct != null
+          ? `${formatNum(county.chd_age_adjusted_prevalence_pct)}%`
           : "—",
     },
     {
       label: "Rural-Urban Continuum (RUCC 2023)",
-      value:
-        county.rucc_2023 != null
-          ? `${county.rucc_2023} · ${county.rural ? "Rural" : "Urban"}`
-          : "—",
+      value: `${county.rucc_2023} · ${county.rural ? "Rural" : "Urban"}`,
     },
   ];
 
@@ -84,7 +86,7 @@ export function CountyPanel({ county, onClose }: Props) {
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close county details"
+          aria-label="Close area details"
           className="rounded p-1 text-[var(--color-stone)] transition hover:bg-[var(--color-panel-hi)]"
         >
           <X size={18} />
@@ -110,6 +112,12 @@ export function CountyPanel({ county, onClose }: Props) {
           </div>
         ))}
       </dl>
+
+      <p className="text-xs leading-relaxed text-[var(--color-stone)]">
+        Distance is point-to-point, not road distance or travel time. A qualifying
+        NPPES record does not establish current practice, availability, licensure,
+        credentialing, or acceptance of patients.
+      </p>
 
       <div className="flex flex-wrap gap-2 text-sm">
         <Link

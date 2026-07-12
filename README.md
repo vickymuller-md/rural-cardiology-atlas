@@ -1,108 +1,118 @@
 # Rural Cardiology Desert Atlas
 
-Interactive US map visualizing the cardiology access gap — cardiologist
-density, distance to nearest specialist, Critical Access Hospitals, HRSA
-primary-care shortage areas, and heart disease mortality — across every
-county in the United States.
+An open-source county-level planning atlas for exploring geographic access to
+adult cardiology services in the United States. Version 0.2.0 covers the exact
+3,144-county 2025 Census universe and reports qualifying NPPES-listed provider
+supply, distance to the nearest mapped qualifying provider location, Critical
+Access Hospitals, primary-care HPSA status, RUCC, population, and CDC PLACES
+coronary-heart-disease prevalence.
 
-Built alongside the [HEARTLAND Protocol](https://heartlandprotocol.org)
-to support primary care–led heart failure management in rural and
-resource-limited US settings.
+The Atlas is a research and planning resource developed alongside the
+[HEARTLAND Protocol](https://heartlandprotocol.org). It is not a provider
+directory, referral tool, clinical decision system, or measure of workforce
+availability or quality of care.
 
 Live site: **https://atlas.heartlandprotocol.org**
 
 | | |
 |-|-|
 | **Author** | Vicky Muller Ferreira, MD ([ORCID 0009-0009-1099-5690](https://orcid.org/0009-0009-1099-5690)) |
-| **License** | MIT (code) · public-domain + CC BY 4.0 (upstream data) |
-| **Stack** | Next.js 16 · React 19 · TypeScript 5 · Tailwind v4 · react-simple-maps |
-| **Pipeline** | Python 3.12 · pandas · scipy |
-| **Deployment** | Vercel |
-| **DOI** | Minted on first GitHub release via `.zenodo.json` |
+| **Version** | 0.2.0 |
+| **License** | MIT (code); upstream data retain their source terms |
+| **Stack** | Next.js 16, React 19, TypeScript 5, Tailwind CSS 4 |
+| **Pipeline** | Python 3.12.12, Node 22.17.0, npm 10.9.2, uv 0.10.4 |
+| **Archive** | [Zenodo concept DOI 10.5281/zenodo.19634990](https://doi.org/10.5281/zenodo.19634990) |
 
-## Features
+## Version 0.2.0 results
 
-- **Choropleth** by cardiologist density or distance to nearest cardiologist.
-- **Clickable counties** with a full detail panel (population, CAHs,
-  HPSA status, mortality rate, RUCC code).
-- **Filters** — state selector, rural-only, CAH-only, HPSA-only.
-- **Per-county deep-link page** at `/county/[fips]` (printable one-pager).
-- **Embeddable** `/embed` endpoint with a copy-paste iframe snippet.
-- **Dynamic OG image** per county at `/api/og?fips=<FIPS>`.
-- **Monthly auto-refresh** via GitHub Actions — opens a PR when upstream
-  data changes.
+- 1,869 of 3,144 counties (59.4%) have zero mapped qualifying provider
+  locations.
+- 34,233,412 people live in those counties, based on ACS 2024 five-year
+  population estimates.
+- The median nearest-provider distance among 1,958 evaluable rural counties is
+  25.2 miles.
+- 909 of 1,372 evaluable Critical Access Hospitals (66.3%) are at least 20
+  miles from the nearest mapped qualifying provider location.
 
-## Data sources
+These results are version-specific. The machine-readable release manifest
+binds the displayed dataset to its county, provider-location, hospital-location,
+topology, and summary hashes.
 
-All inputs are public aggregate datasets — no patient information.
+## Data and method
 
-| Source | Role |
-|-|-|
-| CMS NPPES NPI Registry | Cardiology provider locations |
-| CMS Hospital General Information | Hospitals + Critical Access Hospitals |
-| CDC Atlas of Heart Disease and Stroke | Age-adjusted HD mortality (35+) |
-| US Census ACS 5-year | Population, median household income |
-| USDA ERS RUCC 2023 | Rural-Urban Continuum Codes |
-| HRSA HPSA | Primary-care shortage designations |
-| US Census ZCTA↔County (2020) | ZIP-to-county crosswalk |
-| US Census 2023 Gazetteer | County and ZCTA centroids |
+The frozen 0.2.0 build uses:
 
-Full methodology: [atlas.heartlandprotocol.org/about](https://atlas.heartlandprotocol.org/about).
+- CMS NPPES for individual, active, primary adult-cardiology taxonomy records;
+- CMS Provider of Services for hospitals and Critical Access Hospital status;
+- a preserved Census batch-geocoder snapshot for direct address coordinates;
+- the authenticated HUD-USPS ZIP-to-county 2025 Q4 crosswalk for deterministic
+  same-state fallback when no accepted direct match exists;
+- Census 2025 county Gazetteer/internal points and TIGER-derived topology;
+- ACS 2024 five-year population and income estimates;
+- CDC PLACES 2025 release (2023 estimate year) coronary-heart-disease
+  prevalence;
+- USDA RUCC 2023 and a pinned HRSA primary-care HPSA snapshot.
 
-## Repo layout
+Public counts refer to qualifying NPPES-listed records and mapped locations,
+not board-certified cardiologists, unique clinicians available for care,
+full-time equivalents, appointment capacity, telehealth coverage, or service
+quality. NPPES addresses may be stale or administrative. HUD fallback assigns a
+county proxy, not a verified street-level practice location. Distances are
+straight-line geographic estimates between controlled coordinates and do not
+represent travel time or road distance.
 
-```
+Full methodology and limitations are published on the
+[About page](https://atlas.heartlandprotocol.org/about).
+
+## Repository layout
+
+```text
 atlas/
-├── app/            # Next.js 16 application (deployed to Vercel)
-├── scripts/        # Python ETL pipeline → counties.json
-├── .github/        # CI + scheduled monthly data refresh
+├── app/          # Next.js application and version-bound public assets
+├── scripts/      # controlled acquisition, validation, and offline build code
+├── environment/  # frozen environment controls
+├── tooling/      # deterministic topology tooling
 ├── .zenodo.json
-├── CITATION.cff
-├── LICENSE
-└── NIW_INTEGRATION.md  # Immigration-petition tracking (internal)
+└── CITATION.cff
 ```
 
-## Build locally
+## Verification and local app use
 
-### 1. Data pipeline (once, or monthly)
+The analytical release is produced from a content-addressed 54-input bundle,
+not by downloading mutable “latest” sources. Acquisition and offline build are
+separate controlled phases. See [scripts/README.md](scripts/README.md) for the
+pipeline contract.
 
-```bash
-cd scripts
-uv sync
-uv run python run_all.py
-cp data/processed/counties.json ../app/public/data/counties.json
-```
-
-The pipeline downloads NPPES (~7 GB zipped) on first run. Raw files are
-cached under `scripts/data/raw/` and are not committed.
-
-### 2. App
+To verify the application after the versioned data assets are present:
 
 ```bash
 cd app
-npm install
-npm run dev      # http://localhost:3000
-npm run build    # production build
-npm test         # vitest
+npm ci --offline --ignore-scripts
+npm test -- --run
+npm run typecheck
+npm run build
 ```
+
+There is no active automatic monthly data refresh. A future data release must
+freeze new inputs, produce a separately versioned build, and pass the same
+validation and release controls.
 
 ## Citation
 
-Muller Ferreira V. _Rural Cardiology Desert Atlas_ [Software &amp; dataset].
-2026. `https://atlas.heartlandprotocol.org`. DOI assigned via Zenodo on first
-release.
+Muller Ferreira V. *Rural Cardiology Desert Atlas*. Version 0.2.0. 2026.
+[https://atlas.heartlandprotocol.org](https://atlas.heartlandprotocol.org).
+Use the immutable version DOI shown in the Zenodo record for the release being
+cited; the concept DOI above resolves to the latest archived version.
 
-Related publication: Muller Ferreira V. _HEARTLAND Protocol: Heart failure
-Evidence-based Access in Rural Treatment, Linking Advanced Network
-Delivery._ Cureus, 2026.
+Related protocol: Muller Ferreira V. *HEARTLAND Protocol: A Tiered Clinical
+Implementation Toolkit for Primary Care-Led Heart Failure Management in Rural
+and Resource-Limited Settings*. *Cureus*. 2026;18(3):e104817.
+doi:10.7759/cureus.104817. Scientific archive v3.3:
+doi:10.5281/zenodo.19101219.
 
-## Disclaimers
+## Privacy and use limitations
 
-- This atlas uses publicly available aggregate data. It contains no patient
-  health information.
-- County provider counts reflect primary practice ZIP codes reported to CMS
-  NPPES. They do not reflect part-time, locum tenens, or telehealth
-  availability.
-- Distance is computed between county centroids and ZIP centroids; values
-  inside very large urban ZIP codes are intentionally coarse at the
-  county-level resolution of this atlas.
+The Atlas uses public administrative and aggregate sources and contains no
+patient health information. It should not be used to identify individual
+clinicians, determine referral availability, or infer clinical access or
+outcomes for a particular person or facility.

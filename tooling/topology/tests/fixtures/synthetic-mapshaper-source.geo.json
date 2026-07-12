@@ -1,0 +1,1 @@
+{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"GEOID":"01991","STATEFP":"01","DROP":"x"},"geometry":{"type":"Polygon","coordinates":[[[-87,32],[-86,32],[-86,33],[-87,33],[-87,32]]]}},{"type":"Feature","properties":{"GEOID":"01993","STATEFP":"01","DROP":"y"},"geometry":{"type":"Polygon","coordinates":[[[-86,32],[-85,32],[-85,33],[-86,33],[-86,32]]]}}]}

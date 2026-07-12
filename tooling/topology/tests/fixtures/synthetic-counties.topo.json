@@ -1,0 +1,1 @@
+{"type":"Topology","objects":{"counties":{"type":"GeometryCollection","geometries":[{"type":"Polygon","id":"01001","arcs":[[0]]},{"type":"MultiPolygon","id":"09110","arcs":[[[1]]]},{"type":"Polygon","id":"12001","arcs":[[2]]}]}},"arcs":[[[0,0],[1,0],[0,1],[-1,-1]],[[2,0],[1,0],[0,1],[-1,-1]],[[4,0],[1,0],[0,1],[-1,-1]]]}

@@ -1,36 +1,39 @@
-"""
-run_all.py
-==========
+"""Atlas V19 frozen phase orchestrator; acquisition and offline build stay separate."""
 
-Runs the full pipeline in order. Use `uv run python run_all.py`.
-
-Each step can be re-run individually if a single stage fails. Raw downloads
-are cached under data/raw/; interim parquet files under data/interim/.
-"""
 from __future__ import annotations
 
-import importlib
-import subprocess
+import json
 import sys
+import unittest
+from pathlib import Path
 
-STEPS = [
-    "01_download_nppes",
-    "02_download_cms_pos",
-    "03_download_cdc_mortality",
-    "04_download_census",
-    "05_download_hrsa_hpsa",
-    "06_build_county_json",
-    "07_compute_distances",
-]
+from atlas_pipeline.build import V19_RELEASE_EXPECTATIONS
+from atlas_pipeline.pipeline_cli import main as pipeline_main
 
 
 def main() -> None:
-    for step in STEPS:
-        print(f"\n========== {step} ==========", flush=True)
-        # Import as a module so we honor each script's __main__ guard via runpy.
-        import runpy
-
-        runpy.run_module(step, run_name="__main__")
+    arguments = sys.argv[1:]
+    if arguments == ["describe"]:
+        print(json.dumps({
+            "source_tree": "externally approved canonical manifest required for every phase",
+            "phase_2b": "known-hash manifest materialization with immutable validators",
+            "phase_2c": "single identity HTTP 200 NPPES transport; stop unopened",
+            "phase_2d_i": "central manifest, external approval, then streaming CRC",
+            "phase_2d_ii": "prepare requests and derive county-only PLACES snapshot",
+            "phase_2e": "authorized Census and authenticated HUD acquisition",
+            "phase_2f": "network-denied build --offline with typed chain receipts",
+            "county_count": V19_RELEASE_EXPECTATIONS.county_count,
+        }, indent=2))
+        return
+    if arguments == ["test"]:
+        scripts_dir = Path(__file__).resolve().parent
+        suite = unittest.defaultTestLoader.discover(
+            str(scripts_dir / "tests"), top_level_dir=str(scripts_dir)
+        )
+        if not unittest.TextTestRunner(verbosity=2).run(suite).wasSuccessful():
+            raise SystemExit(1)
+        return
+    pipeline_main(arguments)
 
 
 if __name__ == "__main__":

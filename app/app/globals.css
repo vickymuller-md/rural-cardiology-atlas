@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "@heartland/ui/css/theme.css";
-
-@source "../../node_modules/@heartland/ui/dist/**/*.{js,mjs}";
+@source "../vendor/heartland-ui/dist/**/*.{js,mjs}";
 
 @theme inline {
   --font-sans: var(--font-sans);
@@ -20,8 +19,8 @@
   --color-alert-deep: #e04a35;
   --color-critical: #d63a20;
 
-  /* Choropleth scale — 0 → 5+ cardiologists (sequential, warm to cool) */
-  --color-choro-0: #d63a20;  /* Critical — zero cardiologists */
+  /* Choropleth scale — 0 → 5+ qualifying providers (sequential, warm to cool) */
+  --color-choro-0: #d63a20;  /* Critical — zero qualifying providers assigned */
   --color-choro-1: #ff9a6b;
   --color-choro-2: #f2c86a;
   --color-choro-3: #a6c487;
@@ -34,6 +33,9 @@
 }
 
 :root {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-editorial: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
   --background: #faf6ee;
   --foreground: #0f2544;
   --card: #ffffff;

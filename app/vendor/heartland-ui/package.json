@@ -1,0 +1,35 @@
+{
+  "name": "@heartland/ui",
+  "version": "0.2.1",
+  "description": "Shared header, footer, and design tokens for the HEARTLAND Protocol network of sites.",
+  "author": "Vicky Muller Ferreira, MD <vickymuller@heartlandprotocol.org>",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./css/theme.css": "./src/css/theme.css",
+    "./tokens/network": {
+      "types": "./dist/tokens/network.d.ts",
+      "import": "./dist/tokens/network.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src/css"
+  ],
+  "sideEffects": [
+    "./src/css/theme.css"
+  ],
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "x-atlas-source-commit": "7f80b6d262ad3910fee4d170c7c7477eec47b307"
+}

@@ -11,6 +11,8 @@ next-env.d.ts
 __pycache__/
 *.pyc
 .python-version
+!/.python-version
+!/scripts/.python-version
 .ruff_cache/
 .mypy_cache/
 
@@ -50,3 +52,8 @@ coverage/
 
 # Workflow files staged locally until gh auth has 'workflow' scope
 .pending-workflows/
+
+# Local development instructions and private integration notes
+/CLAUDE.md
+/NIW_INTEGRATION.md
+/graphify-out/

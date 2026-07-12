@@ -1,35 +1,16 @@
 import { ImageResponse } from "next/og";
 import { loadCounties } from "@/lib/counties";
-import { STATE_ABBR_TO_NAME } from "@/lib/fips";
+import { OG_CACHE_CONTROL, ogCopyForFips } from "@/lib/og-copy";
 
 export const runtime = "nodejs";
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const fips = url.searchParams.get("fips");
   const { index } = await loadCounties();
-  const c = fips ? index[fips] ?? null : null;
-
-  const title = c
-    ? `${c.county} County, ${STATE_ABBR_TO_NAME[c.state] ?? c.state}`
-    : "Rural Cardiology Desert Atlas";
-  const subtitle = c
-    ? `${c.n_cardiologists} cardiologist${c.n_cardiologists === 1 ? "" : "s"} · ${
-        c.miles_to_nearest_cardiologist != null
-          ? `${c.miles_to_nearest_cardiologist.toFixed(0)} mi to nearest`
-          : "—"
-      }`
-    : "Cardiology access across US counties";
-  const tag = c
-    ? c.n_cardiologists === 0
-      ? "ZERO CARDIOLOGISTS"
-      : c.hpsa_primary_care
-        ? "HPSA · PRIMARY CARE"
-        : c.rural
-          ? "RURAL COUNTY"
-          : "COUNTY REPORT"
-    : "PUBLIC DATA · UPDATED MONTHLY";
+  const { county: c, title, subtitle, tag } = ogCopyForFips(fips, index);
 
   return new ImageResponse(
     (
@@ -91,6 +72,10 @@ export async function GET(request: Request) {
         </div>
       </div>
     ),
-    { width: 1200, height: 630 }
+    {
+      width: 1200,
+      height: 630,
+      headers: { "Cache-Control": OG_CACHE_CONTROL },
+    }
   );
 }

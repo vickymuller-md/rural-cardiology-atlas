@@ -1,0 +1,31 @@
+/*
+ * HEARTLAND shared theme tokens.
+ *
+ * Import into a Tailwind v4 project as:
+ *   @import "@heartland/ui/css/theme.css";
+ *
+ * Every consuming site inherits the same warm palette + editorial font stack,
+ * keeping all HEARTLAND properties visually consistent.
+ *
+ * Tailwind v4 does not scan node_modules by default; this @source makes
+ * the shared Masthead/Colophon classes (sticky, backdrop-blur, z-40, etc.)
+ * visible to the consumer's Tailwind build.
+ */
+
+@source "../../dist/**/*.{js,mjs}";
+
+@theme inline {
+    --color-terminal: #faf6ee;
+    --color-terminal-deep: #f2ecde;
+    --color-panel: #ffffff;
+    --color-panel-hi: #efe9dd;
+    --color-grid: #e3dcd0;
+    --color-grid-hi: #c5bcac;
+    --color-cool: #0f2544;
+    --color-stone: #7a8593;
+    --color-signal: #2e6f5e;
+    --color-signal-deep: #1e4e41;
+    --color-alert: #ff6b55;
+    --color-alert-deep: #e04a35;
+    --color-critical: #d63a20;
+}

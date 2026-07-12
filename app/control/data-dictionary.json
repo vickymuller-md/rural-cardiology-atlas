@@ -1,0 +1,22 @@
+{
+  "schema_version": "atlas-v19",
+  "source_bound_release_verification": "required_before_release",
+  "geographic_universe": "3144 Census 2025 counties and county equivalents in the 50 states and District of Columbia",
+  "primary_key": "fips",
+  "fields": [
+    { "name": "fips", "type": "string", "nullable": false, "definition": "Five-character county or county-equivalent FIPS." },
+    { "name": "state", "type": "string", "nullable": false, "definition": "Two-character state abbreviation derived from the FIPS prefix." },
+    { "name": "county", "type": "string", "nullable": false, "definition": "County or county-equivalent name." },
+    { "name": "population", "type": "integer", "nullable": false, "definition": "ACS 2024 five-year B01003_E001 population estimate." },
+    { "name": "median_hh_income", "type": "integer", "nullable": true, "definition": "ACS 2024 five-year B19013_E001 median household income; negative Census sentinels are null." },
+    { "name": "rucc_2023", "type": "integer", "nullable": false, "definition": "USDA Rural-Urban Continuum Code 2023, integer 1 through 9." },
+    { "name": "rural", "type": "boolean", "nullable": false, "definition": "Atlas dichotomy: true exactly when rucc_2023 is 4 or greater." },
+    { "name": "n_cardiologists", "type": "integer", "nullable": false, "definition": "Distinct qualifying NPIs assigned to the county from the canonical provider-location table." },
+    { "name": "miles_to_nearest_cardiologist", "type": "number", "nullable": true, "definition": "One-decimal great-circle miles from the Census county internal point to the nearest canonical qualifying-provider location; not road distance or travel time." },
+    { "name": "n_hospitals", "type": "integer", "nullable": false, "definition": "Distinct valid CMS Facility IDs independently assigned to the county." },
+    { "name": "n_cah", "type": "integer", "nullable": false, "definition": "Distinct assigned numeric-CCN facilities with normalized Hospital Type exactly CRITICAL ACCESS HOSPITALS." },
+    { "name": "n_cah_20plus_miles_to_nearest_cardiologist", "type": "integer", "nullable": false, "definition": "Distinct evaluable CAH facilities in the county whose unrounded facility-to-nearest-provider distance is at least 20.0 miles." },
+    { "name": "hpsa_primary_care", "type": "boolean", "nullable": false, "definition": "At least one retained county-associated primary-care HPSA record has an included normalized status; not a cardiology HPSA designation." },
+    { "name": "chd_age_adjusted_prevalence_pct", "type": "number", "nullable": true, "definition": "CDC PLACES 2025 release, estimate year 2023, CHD/AgeAdjPrv model-based adult coronary-heart-disease prevalence percent; suppressed or absent values are null." }
+  ]
+}

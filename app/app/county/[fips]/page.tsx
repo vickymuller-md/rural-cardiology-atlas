@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { loadCounties } from "@/lib/counties";
 import { STATE_ABBR_TO_NAME } from "@/lib/fips";
+import { DISTANCE_DEFINITION, PLACES_LABEL } from "@/lib/methodology";
+import { areaPageMetadata } from "@/lib/og-copy";
 
 interface Params {
   fips: string;
@@ -20,11 +22,8 @@ export async function generateMetadata({
   const { fips } = await params;
   const { index } = await loadCounties();
   const c = index[fips];
-  if (!c) return { title: "County not found" };
-  return {
-    title: `${c.county}, ${c.state}`,
-    description: `${c.county} County cardiology access summary. ${c.n_cardiologists} cardiologists; ${c.miles_to_nearest_cardiologist ?? "n/a"} miles to nearest.`,
-  };
+  if (!c) return { title: "Area not found" };
+  return areaPageMetadata(c);
 }
 
 export default async function CountyPage({
@@ -43,16 +42,16 @@ export default async function CountyPage({
     <article className="mx-auto mt-10 flex max-w-3xl flex-col gap-6 print:mt-0">
       <header>
         <p className="text-xs uppercase tracking-[0.25em] text-[var(--color-stone)]">
-          County report · FIPS {c.fips}
+          Area report · FIPS {c.fips}
         </p>
         <h1 className="mt-1 font-[var(--font-display)] text-4xl">{c.county}</h1>
         <p className="text-lg text-[var(--color-stone)]">{stateName}</p>
       </header>
 
       <section className="grid grid-cols-2 gap-3 md:grid-cols-3">
-        <Tile label="Cardiologists" value={`${c.n_cardiologists}`} emphasize={c.n_cardiologists === 0} />
+        <Tile label="Qualifying providers" value={`${c.n_cardiologists}`} emphasize={c.n_cardiologists === 0} />
         <Tile
-          label="Miles to nearest"
+          label="Great-circle miles to nearest"
           value={
             c.miles_to_nearest_cardiologist != null
               ? `${c.miles_to_nearest_cardiologist.toFixed(1)}`
@@ -67,21 +66,26 @@ export default async function CountyPage({
         <Tile label="Hospitals" value={`${c.n_hospitals}`} />
         <Tile label="Critical Access Hospitals" value={`${c.n_cah}`} emphasize={c.n_cah > 0} />
         <Tile
+          label="CAHs ≥20 mi from qualifying provider"
+          value={`${c.n_cah_20plus_miles_to_nearest_cardiologist}`}
+          emphasize={c.n_cah_20plus_miles_to_nearest_cardiologist > 0}
+        />
+        <Tile
           label="HPSA — primary care"
           value={c.hpsa_primary_care ? "Designated" : "—"}
           emphasize={c.hpsa_primary_care}
         />
         <Tile
-          label="Heart disease mortality / 100k"
+          label="Adult CHD prevalence (age-adjusted %)"
           value={
-            c.heart_disease_mortality_per_100k != null
-              ? c.heart_disease_mortality_per_100k.toFixed(1)
+            c.chd_age_adjusted_prevalence_pct != null
+              ? c.chd_age_adjusted_prevalence_pct.toFixed(1)
               : "—"
           }
         />
         <Tile
           label="RUCC 2023"
-          value={c.rucc_2023 != null ? `${c.rucc_2023} · ${c.rural ? "Rural" : "Urban"}` : "—"}
+          value={`${c.rucc_2023} · ${c.rural ? "Rural" : "Urban"}`}
         />
         <Tile
           label="Median HH income"
@@ -92,13 +96,11 @@ export default async function CountyPage({
       <section className="rounded-lg border border-[var(--color-grid)] bg-[var(--color-panel)] p-5 text-sm leading-relaxed">
         <p className="font-medium text-[var(--color-cool)]">Context</p>
         <p className="mt-2 text-[var(--color-stone)]">
-          {c.n_cardiologists === 0 && (c.miles_to_nearest_cardiologist ?? 0) >= 30
-            ? `${c.county} County has no cardiologist with a primary practice ZIP in the county. The nearest specialist is approximately ${(c.miles_to_nearest_cardiologist ?? 0).toFixed(0)} miles away.`
-            : c.n_cardiologists === 0
-              ? `${c.county} County has no cardiologist with a primary practice ZIP in the county.`
-              : `${c.county} County has ${c.n_cardiologists} cardiologist${c.n_cardiologists === 1 ? "" : "s"} with primary practice ZIPs inside the county.`}{" "}
-          The HEARTLAND Protocol is designed to support primary care–led heart
-          failure management in this setting.
+          {c.n_cardiologists === 0
+            ? `Under the preregistered address-geocoding and fallback rules, no qualifying provider was assigned to ${c.county}.`
+            : `Under the preregistered rules, ${c.n_cardiologists} qualifying NPPES-listed provider${c.n_cardiologists === 1 ? " was" : "s were"} assigned to ${c.county}.`}{" "}
+          {DISTANCE_DEFINITION} {PLACES_LABEL}. These area-level measures do not
+          establish service availability, appointment access, or patient-level outcomes.
         </p>
       </section>
 

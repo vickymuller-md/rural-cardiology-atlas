@@ -1,28 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { colorFor, legendFor } from "@/lib/color-scale";
-import type { County } from "@/lib/types";
-
-function county(partial: Partial<County>): County {
-  return {
-    fips: "00000",
-    state: "XX",
-    county: "Test",
-    population: 100,
-    median_hh_income: 50000,
-    rucc_2023: 1,
-    rural: false,
-    n_cardiologists: 0,
-    miles_to_nearest_cardiologist: 0,
-    n_hospitals: 0,
-    n_cah: 0,
-    hpsa_primary_care: false,
-    heart_disease_mortality_per_100k: 0,
-    ...partial,
-  };
-}
+import { makeCounty as county } from "./fixtures";
 
 describe("color-scale — density metric", () => {
-  it("returns the critical color for zero cardiologists", () => {
+  it("returns the critical color for zero qualifying providers", () => {
     expect(colorFor(county({ n_cardiologists: 0 }), "density")).toContain("choro-0");
   });
 

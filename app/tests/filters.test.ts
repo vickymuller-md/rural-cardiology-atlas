@@ -1,32 +1,14 @@
 import { describe, it, expect } from "vitest";
 import { applyFilters, DEFAULT_FILTERS } from "@/lib/filters";
 import type { County } from "@/lib/types";
-
-function c(partial: Partial<County>): County {
-  return {
-    fips: "00000",
-    state: "AL",
-    county: "Test",
-    population: 100,
-    median_hh_income: null,
-    rucc_2023: null,
-    rural: false,
-    n_cardiologists: 0,
-    miles_to_nearest_cardiologist: null,
-    n_hospitals: 0,
-    n_cah: 0,
-    hpsa_primary_care: false,
-    heart_disease_mortality_per_100k: null,
-    ...partial,
-  };
-}
+import { makeCounty as c } from "./fixtures";
 
 describe("applyFilters", () => {
   const list: County[] = [
-    c({ fips: "48301", state: "TX", rural: true, n_cah: 1, hpsa_primary_care: true }),
+    c({ fips: "48301", state: "TX", rucc_2023: 9, rural: true, n_hospitals: 1, n_cah: 1, hpsa_primary_care: true }),
     c({ fips: "48201", state: "TX", rural: false, n_cah: 0, hpsa_primary_care: false }),
     c({ fips: "36061", state: "NY", rural: false, n_cah: 0, hpsa_primary_care: false }),
-    c({ fips: "54047", state: "WV", rural: true, n_cah: 0, hpsa_primary_care: true }),
+    c({ fips: "54047", state: "WV", rucc_2023: 8, rural: true, n_cah: 0, hpsa_primary_care: true }),
   ];
 
   it("returns all when defaults", () => {

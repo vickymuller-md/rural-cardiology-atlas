@@ -4,23 +4,24 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Atlas } from "@/components/Atlas";
 import { StatsBar } from "@/components/stats/StatsBar";
 import { AtlasHeroMark } from "@/components/landing/Mark";
-import { loadCounties, computeStats } from "@/lib/counties";
+import { loadAtlasData } from "@/lib/counties";
+import { DISTANCE_DEFINITION, PROVIDER_DEFINITION } from "@/lib/methodology";
+import type { NationalSummary } from "@/lib/types";
 
-export const revalidate = 3600;
+export const dynamic = "force-static";
 
 export default async function Home() {
-  const { list, index } = await loadCounties();
-  const stats = computeStats(list);
+  const { list, index, summary } = await loadAtlasData();
 
   return (
     <NuqsAdapter>
-      <Hero totalCounties={stats.total} zeroPct={stats.zeroCardioPct} />
+      <Hero summary={summary} />
 
       <section
         id="atlas"
         className="mx-auto flex max-w-[1400px] flex-col gap-6 px-6 pb-16"
       >
-        <StatsBar stats={stats} />
+        <StatsBar summary={summary} />
         <Suspense
           fallback={
             <div className="h-[600px] rounded-lg border border-[var(--color-grid)] bg-[var(--color-panel)]" />
@@ -34,12 +35,10 @@ export default async function Home() {
             How this map is built
           </p>
           <p>
-            Cardiologists are identified from the CMS NPPES registry and located
-            via their practice ZIP (crosswalked to county FIPS by the US Census
-            ZCTA↔County relationship file). Distance is measured between county
-            centroids and ZIP centroids via great-circle geometry — suitable for
-            county-level comparisons and intentionally coarse inside very large
-            urban ZIPs. Full{" "}
+            The Atlas counts {PROVIDER_DEFINITION}. Practice addresses are assigned
+            directly with the pinned Census Batch Geocoder when valid; unsuccessful
+            or ineligible addresses with a valid ZIP use the preregistered same-state
+            HUD-USPS business-ratio fallback. {DISTANCE_DEFINITION} Full{" "}
             <Link
               href="/about"
               className="underline decoration-[var(--color-grid-hi)] hover:text-[var(--color-alert)]"
@@ -55,11 +54,9 @@ export default async function Home() {
 }
 
 function Hero({
-  totalCounties,
-  zeroPct,
+  summary,
 }: {
-  totalCounties: number;
-  zeroPct: number;
+  summary: NationalSummary;
 }) {
   return (
     <section className="relative overflow-hidden">
@@ -71,21 +68,22 @@ function Hero({
                 className="h-1.5 w-1.5 rounded-full bg-[var(--color-signal)]"
                 aria-hidden
               />
-              Public dataset · Updated monthly · {totalCounties.toLocaleString("en-US")} counties
+              Version-pinned public dataset · {summary.county_count.toLocaleString("en-US")} counties and county equivalents
             </p>
 
             <h1 className="mt-7 text-[clamp(2.4rem,6vw,4.75rem)] font-[var(--font-editorial)] font-semibold leading-[1.04] tracking-[-0.025em] text-[var(--color-cool)]">
-              Heart failure care{" "}
+              Area-level cardiology access indicators,{" "}
               <span className="font-[var(--font-display)] italic font-normal text-[var(--color-alert)]">
-                where there&rsquo;s
+                mapped with
               </span>{" "}
-              no cardiologist.
+              reproducible public data.
             </h1>
 
             <p className="mt-7 max-w-xl font-[var(--font-editorial)] text-[17px] leading-[1.65] text-[var(--color-cool)]/75 md:text-[18px]">
-              An interactive county-level atlas of the US cardiology access gap
-              — provider density, distance to the nearest specialist, Critical
-              Access Hospitals, and HRSA shortage designations. Companion to the
+              An interactive atlas of qualifying NPPES-listed provider locations,
+              great-circle distance, Critical Access Hospitals, CDC PLACES adult
+              coronary-heart-disease prevalence, and primary-care HPSA evidence.
+              Companion to the
               peer-reviewed{" "}
               <a
                 className="underline decoration-[var(--color-grid-hi)] hover:text-[var(--color-alert)]"
@@ -116,9 +114,12 @@ function Hero({
             </div>
 
             <p className="mt-12 max-w-md font-[var(--font-editorial)] text-[12.5px] leading-relaxed text-[var(--color-stone)]">
-              {(zeroPct * 100).toFixed(1)}% of US counties have zero cardiologists
-              at a primary practice ZIP. Aggregate public data only; no patient
-              health information.
+              Under the preregistered address-geocoding and fallback rules,{" "}
+              {summary.zero_provider_count.toLocaleString("en-US")} of{" "}
+              {summary.county_count.toLocaleString("en-US")} counties and county
+              equivalents in the 50 states and District of Columbia ({summary.zero_provider_pct.toFixed(1)}%)
+              had no qualifying provider assigned in the June 8, 2026 NPPES snapshot.
+              Aggregate public data only; no patient health information.
             </p>
           </div>
 

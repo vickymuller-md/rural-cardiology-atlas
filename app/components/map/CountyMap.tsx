@@ -10,11 +10,14 @@ import {
 import { feature } from "topojson-client";
 import { geoBounds } from "d3-geo";
 import type { Feature, FeatureCollection } from "geojson";
-import type { Topology, GeometryCollection } from "topojson-specification";
 import type { County, CountyIndex, ChoroplethMetric } from "@/lib/types";
 import { colorFor } from "@/lib/color-scale";
 import { STATE_ABBR_TO_FIPS } from "@/lib/fips";
-import { US_COUNTIES_TOPO, US_STATES_TOPO } from "./topology";
+import {
+  loadLocalTopologies,
+  type CountyTopology,
+  type StateTopology,
+} from "./topology";
 import { cn } from "@/lib/cn";
 
 interface Props {
@@ -23,12 +26,8 @@ interface Props {
   stateFilter: string | null;
   selectedFips: string | null;
   onSelect: (fips: string) => void;
+  analyticalFips: readonly string[];
 }
-
-type USTopo = Topology<{
-  counties: GeometryCollection;
-  states: GeometryCollection;
-}>;
 
 // Default CONUS view. geoAlbersUsa canvas is 1000x600 and tuned so that
 // zoom=1 at center=[-96.9,38] shows the full US including AK/HI insets.
@@ -51,27 +50,31 @@ export function CountyMap({
   stateFilter,
   selectedFips,
   onSelect,
+  analyticalFips,
 }: Props) {
-  const [topo, setTopo] = useState<USTopo | null>(null);
-  const [statesTopo, setStatesTopo] = useState<USTopo | null>(null);
+  const [topo, setTopo] = useState<CountyTopology | null>(null);
+  const [statesTopo, setStatesTopo] = useState<StateTopology | null>(null);
+  const [topologyError, setTopologyError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([
-      fetch(US_COUNTIES_TOPO).then((r) => r.json()),
-      fetch(US_STATES_TOPO).then((r) => r.json()),
-    ])
-      .then(([c, s]) => {
+    loadLocalTopologies(analyticalFips)
+      .then(({ counties: countyTopology, states: stateTopology }) => {
         if (!cancelled) {
-          setTopo(c);
-          setStatesTopo(s);
+          setTopo(countyTopology);
+          setStatesTopo(stateTopology);
+          setTopologyError(null);
         }
       })
-      .catch((e) => console.error("topology load failed", e));
+      .catch((error: unknown) => {
+        if (!cancelled) {
+          setTopologyError(error instanceof Error ? error.message : "Topology validation failed");
+        }
+      });
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [analyticalFips]);
 
   const { countyFc, stateFc } = useMemo(() => {
     if (!topo || !statesTopo) return { countyFc: null, stateFc: null };
@@ -118,11 +121,11 @@ export function CountyMap({
         "bg-[var(--color-panel)]"
       )}
       role="application"
-      aria-label="US county cardiologist access map"
+      aria-label="US map of counties and county equivalents with qualifying NPPES-listed provider access metrics"
     >
       {!topo && (
         <div className="absolute inset-0 flex items-center justify-center text-sm text-[var(--color-stone)]">
-          Loading map…
+          {topologyError ?? "Loading verified local map geometry…"}
         </div>
       )}
       {countyFc && stateFc && (
@@ -167,7 +170,7 @@ export function CountyMap({
                       role={inState ? "button" : "presentation"}
                       aria-label={
                         c && inState
-                          ? `${c.county}, ${c.state}. ${c.n_cardiologists} cardiologist${c.n_cardiologists === 1 ? "" : "s"}.`
+                          ? `${c.county}, ${c.state}. ${c.n_cardiologists} qualifying NPPES-listed provider${c.n_cardiologists === 1 ? "" : "s"} assigned.`
                           : undefined
                       }
                       className={cn(

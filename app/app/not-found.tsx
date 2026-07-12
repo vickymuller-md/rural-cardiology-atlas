@@ -8,7 +8,7 @@ export default function NotFound() {
       </p>
       <h1 className="mt-1 font-[var(--font-display)] text-4xl">Off the map</h1>
       <p className="mt-4 text-[var(--color-stone)]">
-        We could not find that county (or page). Try the{" "}
+        We could not find that area (or page). Try the{" "}
         <Link className="underline" href="/">
           atlas home
         </Link>

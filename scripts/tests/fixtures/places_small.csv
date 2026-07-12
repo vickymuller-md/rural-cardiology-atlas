@@ -1,0 +1,4 @@
+locationid,stateabbr,locationname,year,datasource,category,measure,measureid,data_value_unit,data_value_type,datavaluetypeid,data_value,low_confidence_limit,high_confidence_limit,data_value_footnote_symbol,data_value_footnote
+59,US,United States,2023,BRFSS,Health Outcomes,Coronary heart disease among adults,CHD,%,Age-adjusted prevalence,AgeAdjPrv,5.3,5.2,5.4,,
+01001,AL,Synthetic One,2023,BRFSS,Health Outcomes,Coronary heart disease among adults,CHD,%,Age-adjusted prevalence,AgeAdjPrv,5.0,4.0,6.0,,
+01003,AL,Synthetic Two,2023,BRFSS,Health Outcomes,Coronary heart disease among adults,CHD,%,Age-adjusted prevalence,AgeAdjPrv,,,,*,Population less than 50

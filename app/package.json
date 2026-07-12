@@ -1,13 +1,19 @@
 {
   "name": "rural-cardiology-atlas",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Interactive US map visualizing cardiology access gaps — Rural Cardiology Desert Atlas",
+  "description": "Versioned county-level planning atlas of adult-cardiology access indicators",
   "homepage": "https://atlas.heartlandprotocol.org",
   "author": "Vicky Muller Ferreira, MD <vickymuller@heartlandprotocol.org>",
   "license": "MIT",
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": "22.17.0",
+    "npm": "10.9.2"
+  },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/verify-production-assets.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -16,7 +22,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@heartland/ui": "github:vickymuller-md/heartland-ui#v0.2.1",
+    "@heartland/ui": "file:vendor/heartland-ui",
     "@types/d3-geo": "^3.1.0",
     "@vnedyalk0v/react19-simple-maps": "^2.0.2",
     "clsx": "^2.1.1",
@@ -29,7 +35,7 @@
     "react-dom": "^19.2.4",
     "server-only": "^0.0.1",
     "tailwind-merge": "^3.5.0",
-    "topojson-client": "^3.1.0"
+    "topojson-client": "3.1.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.2",

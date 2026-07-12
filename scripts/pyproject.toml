@@ -1,22 +1,28 @@
 [project]
 name = "rural-cardiology-atlas-pipeline"
-version = "0.1.0"
-description = "Public-data ETL pipeline for the Rural Cardiology Desert Atlas"
+version = "0.2.0"
+description = "Preregistered offline analytical pipeline for the Rural Cardiology Atlas"
 authors = [{ name = "Vicky Muller Ferreira, MD", email = "vickymuller@heartlandprotocol.org" }]
 license = { text = "MIT" }
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = "==3.12.12"
 
 dependencies = [
-  "pandas>=2.2",
-  "pyarrow>=17.0",
-  "requests>=2.32",
-  "tqdm>=4.66",
-  "scipy>=1.13",
-  "numpy>=2.0",
-  "openpyxl>=3.1",
-  "xlrd>=2.0",
+  "pandas==3.0.2",
+  "pyarrow==23.0.1",
+  "requests==2.33.1",
+  "tqdm==4.67.3",
+  "scipy==1.17.1",
+  "numpy==2.4.4",
+  "openpyxl==3.1.5",
+  "xlrd==2.0.2",
 ]
 
 [tool.uv]
 package = false
+
+[tool.atlas.environment]
+python = "3.12.12"
+uv = "0.10.4"
+analytical-build-network = "disabled"
+offline-install = "uv sync --frozen --offline"

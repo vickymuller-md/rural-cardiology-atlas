@@ -1,0 +1,3 @@
+A-1,input one,Match,Exact,100 TEST AVE,"-86.500000,32.500000",1,L,01,001,000100,1000
+A-2,input two,Tie,Non_Exact,,,,,,,,
+A-3,input three,No_Match,,,,,,,,,

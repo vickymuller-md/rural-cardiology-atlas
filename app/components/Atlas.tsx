@@ -19,6 +19,7 @@ const metricParser = parseAsStringLiteral(["density", "distance"] as const).with
 );
 
 export function Atlas({ list, index }: Props) {
+  const analyticalFips = useMemo(() => list.map((county) => county.fips), [list]);
   const [q, setQ] = useQueryStates(
     {
       state: parseAsString,
@@ -77,6 +78,7 @@ export function Atlas({ list, index }: Props) {
             stateFilter={filters.state}
             selectedFips={filters.selected}
             onSelect={(fips) => patch({ selected: fips })}
+            analyticalFips={analyticalFips}
           />
           <Legend metric={filters.metric} />
         </div>

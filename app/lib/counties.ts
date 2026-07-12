@@ -1,19 +1,34 @@
 import "server-only";
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import type { County, CountyIndex } from "./types";
+import { parseAtlasAssets } from "./atlas-assets";
+import { parseCountyUniverse } from "./county-universe";
+import { PRODUCTION_COUNTY_REQUIREMENTS } from "./data-contract";
+import { verifyProductionAssets } from "../scripts/verify-production-assets.mjs";
+import type { AtlasData } from "./types";
 
-export { computeStats, type NationalStats } from "./stats";
+export type { NationalSummary } from "./types";
 
-let cache: { list: County[]; index: CountyIndex } | null = null;
+let cache: AtlasData | null = null;
 
-export async function loadCounties(): Promise<{ list: County[]; index: CountyIndex }> {
+export async function loadAtlasData(): Promise<AtlasData> {
   if (cache) return cache;
-  const file = path.join(process.cwd(), "public", "data", "counties.json");
-  const raw = await fs.readFile(file, "utf-8");
-  const list = JSON.parse(raw) as County[];
-  const index: CountyIndex = {};
-  for (const c of list) index[c.fips] = c;
-  cache = { list, index };
+  const manifestSha256 = process.env.ATLAS_RELEASE_MANIFEST_SHA256;
+  const verified = await verifyProductionAssets({
+    expectedReleaseManifestSha256: manifestSha256,
+  });
+  const [countyBytes, summaryBytes, universeBytes] = [
+    verified.countyBytes,
+    verified.summaryBytes,
+    verified.universeBytes,
+  ];
+  const expectedFips = parseCountyUniverse(universeBytes);
+  cache = parseAtlasAssets(countyBytes, summaryBytes, {
+    ...PRODUCTION_COUNTY_REQUIREMENTS,
+    expectedFips,
+  });
   return cache;
+}
+
+export async function loadCounties(): Promise<Pick<AtlasData, "list" | "index">> {
+  const { list, index } = await loadAtlasData();
+  return { list, index };
 }

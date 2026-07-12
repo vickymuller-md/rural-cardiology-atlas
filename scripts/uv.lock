@@ -1,6 +1,6 @@
 version = 1
 revision = 3
-requires-python = ">=3.11"
+requires-python = "==3.12.12"
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
     "python_full_version >= '3.14' and sys_platform == 'emscripten'",
@@ -365,7 +365,7 @@ wheels = [
 
 [[package]]
 name = "rural-cardiology-atlas-pipeline"
-version = "0.1.0"
+version = "0.2.0"
 source = { virtual = "." }
 dependencies = [
     { name = "numpy" },
@@ -380,14 +380,14 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "numpy", specifier = ">=2.0" },
-    { name = "openpyxl", specifier = ">=3.1" },
-    { name = "pandas", specifier = ">=2.2" },
-    { name = "pyarrow", specifier = ">=17.0" },
-    { name = "requests", specifier = ">=2.32" },
-    { name = "scipy", specifier = ">=1.13" },
-    { name = "tqdm", specifier = ">=4.66" },
-    { name = "xlrd", specifier = ">=2.0" },
+    { name = "numpy", specifier = "==2.4.4" },
+    { name = "openpyxl", specifier = "==3.1.5" },
+    { name = "pandas", specifier = "==3.0.2" },
+    { name = "pyarrow", specifier = "==23.0.1" },
+    { name = "requests", specifier = "==2.33.1" },
+    { name = "scipy", specifier = "==1.17.1" },
+    { name = "tqdm", specifier = "==4.67.3" },
+    { name = "xlrd", specifier = "==2.0.2" },
 ]
 
 [[package]]

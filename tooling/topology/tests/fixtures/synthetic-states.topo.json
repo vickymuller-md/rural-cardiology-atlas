@@ -1,0 +1,1 @@
+{"type":"Topology","objects":{"states":{"type":"GeometryCollection","geometries":[{"type":"Polygon","id":"01","arcs":[[0]]},{"type":"Polygon","id":"09","arcs":[[1]]},{"type":"MultiPolygon","id":"12","arcs":[[[2]]]}]}},"arcs":[[[0,0],[1,0],[0,1],[-1,-1]],[[2,0],[1,0],[0,1],[-1,-1]],[[4,0],[1,0],[0,1],[-1,-1]]]}
