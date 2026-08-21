@@ -5,6 +5,10 @@ import { describe, expect, it } from "vitest";
 import { CountyPanel } from "@/components/map/CountyPanel";
 import { StatsBar } from "@/components/stats/StatsBar";
 import {
+  DATASET_LANDING_URL,
+  datasetStructuredData,
+} from "@/lib/dataset-metadata";
+import {
   DISTANCE_DEFINITION,
   HPSA_LIMITATION,
   HPSA_SNAPSHOT_LABEL,
@@ -100,5 +104,43 @@ describe("controlled public labels", () => {
       "Official daily HRSA primary-care HPSA warehouse snapshot captured July 10, 2026"
     );
     expect(publicSources.join("\n")).not.toMatch(/Q3 FY2026|quarterly HRSA|Q3 detailed/i);
+  });
+
+  it("publishes a Google Dataset-compatible identity and downloadable release", () => {
+    expect(datasetStructuredData["@context"]).toBe("https://schema.org");
+    expect(datasetStructuredData["@type"]).toBe("Dataset");
+    expect(datasetStructuredData.url).toBe(DATASET_LANDING_URL);
+    expect(datasetStructuredData.description.length).toBeGreaterThanOrEqual(50);
+    expect(datasetStructuredData.identifier).toContain(
+      "https://doi.org/10.5281/zenodo.21323595"
+    );
+    expect(datasetStructuredData.identifier).toContain("RRID:SCR_028847");
+    expect(datasetStructuredData.sameAs).toContain(
+      "https://www.ruralhealthinfo.org/resources/28561"
+    );
+    expect(datasetStructuredData.creator.sameAs).toBe(
+      "https://orcid.org/0009-0009-1099-5690"
+    );
+    expect(datasetStructuredData.distribution).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          "@type": "DataDownload",
+          contentUrl: "https://atlas.heartlandprotocol.org/data/counties.json",
+          encodingFormat: "application/json",
+        }),
+      ])
+    );
+  });
+
+  it("wires the canonical dataset page and county pages into the sitemap", async () => {
+    const [aboutSource, sitemapSource] = await Promise.all(
+      ["app/about/page.tsx", "app/sitemap.ts"].map((relative) =>
+        readFile(path.join(process.cwd(), relative), "utf8")
+      )
+    );
+    expect(aboutSource).toContain('type="application/ld+json"');
+    expect(aboutSource).toContain("datasetStructuredData");
+    expect(sitemapSource).toContain("DATASET_LANDING_URL");
+    expect(sitemapSource).toContain("/county/${county.fips}");
   });
 });

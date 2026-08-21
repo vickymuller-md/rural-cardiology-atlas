@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EmbedSnippet } from "@/components/export/EmbedSnippet";
 import { loadAtlasData } from "@/lib/counties";
+import { datasetStructuredData } from "@/lib/dataset-metadata";
 import {
   DISTANCE_DEFINITION,
   HPSA_LIMITATION,
@@ -17,9 +18,17 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const { summary } = await loadAtlasData();
+  const structuredData = JSON.stringify(datasetStructuredData).replace(
+    /</g,
+    "\\u003c"
+  );
 
   return (
     <div className="mx-auto mt-10 flex max-w-3xl flex-col gap-8 px-6 pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: structuredData }}
+      />
       <header>
         <p className="text-xs uppercase tracking-[0.25em] text-[var(--color-stone)]">
           Methodology · Data sources · Limitations
@@ -179,7 +188,7 @@ export default async function AboutPage() {
           </li>
         </ul>
 
-        <h2>Citation and license</h2>
+        <h2 id="citation-and-license">Citation and license</h2>
         <p>
           Muller Ferreira V. <em>Rural Cardiology Desert Atlas</em> [software and
           dataset]. 2026. Available from{" "}
