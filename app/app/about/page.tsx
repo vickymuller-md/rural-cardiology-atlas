@@ -189,6 +189,17 @@ export default async function AboutPage() {
           . Version-specific citation metadata accompanies each published release.
         </p>
         <p>
+          Preserved source snapshot: {" "}
+          <a
+            href="https://archive.softwareheritage.org/swh:1:snp:27b71be623c7da033c43dbe246029467075a1b4b/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            swh:1:snp:27b71be623c7da033c43dbe246029467075a1b4b
+          </a>
+          .
+        </p>
+        <p>
           Atlas source code is MIT licensed. Upstream data and derived assets retain
           their source-specific terms and attribution requirements.
         </p>

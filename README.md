@@ -110,6 +110,12 @@ and Resource-Limited Settings*. *Cureus*. 2026;18(3):e104817.
 doi:10.7759/cureus.104817. Scientific archive v3.3:
 doi:10.5281/zenodo.19101219.
 
+## Software preservation
+
+Software Heritage snapshot (archived 2026-08-25): [`swh:1:snp:27b71be623c7da033c43dbe246029467075a1b4b`](https://archive.softwareheritage.org/swh:1:snp:27b71be623c7da033c43dbe246029467075a1b4b/)
+
+This persistent SWHID identifies the repository snapshot captured on that date; archival does not imply endorsement or validation.
+
 ## Privacy and use limitations
 
 The Atlas uses public administrative and aggregate sources and contains no

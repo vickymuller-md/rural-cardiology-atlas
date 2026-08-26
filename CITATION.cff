@@ -22,6 +22,10 @@ url: "https://atlas.heartlandprotocol.org"
 repository-code: "https://github.com/vickymuller-md/rural-cardiology-atlas"
 repository-artifact: "https://doi.org/10.5281/zenodo.19634990"
 license: MIT
+identifiers:
+  - type: swh
+    value: "swh:1:snp:27b71be623c7da033c43dbe246029467075a1b4b"
+    description: "Software Heritage snapshot archived 2026-08-25"
 keywords:
   - rural health
   - cardiology

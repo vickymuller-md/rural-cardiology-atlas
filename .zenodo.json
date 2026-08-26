@@ -37,6 +37,12 @@
       "relation": "isDerivedFrom",
       "resource_type": "publication-article",
       "scheme": "doi"
+    },
+    {
+      "identifier": "https://archive.softwareheritage.org/swh:1:snp:27b71be623c7da033c43dbe246029467075a1b4b/",
+      "relation": "isSupplementedBy",
+      "resource_type": "software",
+      "scheme": "url"
     }
   ],
   "communities": [{ "identifier": "open-science" }],
