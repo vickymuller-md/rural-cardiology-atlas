@@ -34,7 +34,7 @@ var HEARTLAND_NETWORK = [
     label: "Clinical App",
     shortLabel: "App",
     url: "https://app.heartlandprotocol.org",
-    tagline: "Interactive decision-support PWA with calculators, titration wizards, and alerts."
+    tagline: "Educational implementation companion with synthetic workflows, calculators, bounded AI and human review."
   },
   {
     id: "scoring",
@@ -52,7 +52,7 @@ var HEARTLAND_NETWORK = [
   },
   {
     id: "atlas",
-    label: "Access Atlas",
+    label: "Rural Cardiology Desert Atlas",
     shortLabel: "Atlas",
     url: "https://atlas.heartlandprotocol.org",
     tagline: "County-level map of cardiology access gaps across the United States."
@@ -82,7 +82,7 @@ var HEARTLAND_NETWORK = [
 var HEARTLAND_EXTERNAL_LINKS = {
   zenodo: "https://doi.org/10.5281/zenodo.19101219",
   osf: "https://doi.org/10.17605/OSF.IO/YUSGH",
-  cureus: "https://www.cureus.com/",
+  cureus: "https://doi.org/10.7759/cureus.104817",
   medrxiv: "https://www.medrxiv.org/",
   orcid: "https://orcid.org/0009-0009-1099-5690",
   email: "mailto:vickymuller@heartlandprotocol.org",
@@ -186,14 +186,15 @@ function NetworkSwitcher({ currentSite }) {
 
 // src/components/Colophon.tsx
 import { jsx as jsx3, jsxs as jsxs3 } from "react/jsx-runtime";
-var DEFAULT_DESCRIPTION = "Heart failure Evidence-based Access in Rural Treatment, Linking Advanced Network Delivery \u2014 a peer-reviewed implementation framework and its companion open-source toolkit.";
-var DEFAULT_LEGAL = "Built by Vicky Muller Ferreira, MD. For licensed clinicians only. Not a medical device. Not for direct patient care. No patient health information is ever stored.";
+var DEFAULT_DESCRIPTION = "Heart failure Evidence-based Access in Rural Treatment, Linking Advanced Network Delivery \u2014 an implementation framework described in a peer-reviewed article, with an open-source companion toolkit and app.";
+var DEFAULT_LEGAL = "Built by Vicky Muller Ferreira, MD. Educational implementation-support resource for healthcare professionals. Not medical advice, not a diagnostic tool, and not a substitute for clinical judgment.";
 function Colophon({
   currentSite,
   extraBlocks = [],
   description = DEFAULT_DESCRIPTION,
   legal = DEFAULT_LEGAL,
-  version
+  version,
+  archive
 }) {
   const site = findSite(currentSite);
   const year = (/* @__PURE__ */ new Date()).getFullYear();
@@ -218,7 +219,8 @@ function Colophon({
       )) }, block.title)),
       /* @__PURE__ */ jsxs3(FooterBlock, { title: "Research", children: [
         /* @__PURE__ */ jsx3(FooterLink, { href: HEARTLAND_EXTERNAL_LINKS.cureus, external: true, children: "Cureus article" }),
-        /* @__PURE__ */ jsx3(FooterLink, { href: HEARTLAND_EXTERNAL_LINKS.zenodo, external: true, children: "Zenodo deposit" }),
+        /* @__PURE__ */ jsx3(FooterLink, { href: HEARTLAND_EXTERNAL_LINKS.zenodo, external: true, children: "Implementation Toolkit V3.3 (Zenodo)" }),
+        archive && /* @__PURE__ */ jsx3(FooterLink, { href: archive.href, external: archive.external ?? true, children: archive.label }),
         /* @__PURE__ */ jsx3(FooterLink, { href: HEARTLAND_EXTERNAL_LINKS.osf, external: true, children: "OSF deposit" }),
         /* @__PURE__ */ jsx3(FooterLink, { href: HEARTLAND_EXTERNAL_LINKS.orcid, external: true, children: "ORCID profile" })
       ] }),

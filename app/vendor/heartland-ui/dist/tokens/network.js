@@ -12,7 +12,7 @@ var HEARTLAND_NETWORK = [
     label: "Clinical App",
     shortLabel: "App",
     url: "https://app.heartlandprotocol.org",
-    tagline: "Interactive decision-support PWA with calculators, titration wizards, and alerts."
+    tagline: "Educational implementation companion with synthetic workflows, calculators, bounded AI and human review."
   },
   {
     id: "scoring",
@@ -30,7 +30,7 @@ var HEARTLAND_NETWORK = [
   },
   {
     id: "atlas",
-    label: "Access Atlas",
+    label: "Rural Cardiology Desert Atlas",
     shortLabel: "Atlas",
     url: "https://atlas.heartlandprotocol.org",
     tagline: "County-level map of cardiology access gaps across the United States."
@@ -60,7 +60,7 @@ var HEARTLAND_NETWORK = [
 var HEARTLAND_EXTERNAL_LINKS = {
   zenodo: "https://doi.org/10.5281/zenodo.19101219",
   osf: "https://doi.org/10.17605/OSF.IO/YUSGH",
-  cureus: "https://www.cureus.com/",
+  cureus: "https://doi.org/10.7759/cureus.104817",
   medrxiv: "https://www.medrxiv.org/",
   orcid: "https://orcid.org/0009-0009-1099-5690",
   email: "mailto:vickymuller@heartlandprotocol.org",

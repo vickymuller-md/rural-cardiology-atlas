@@ -102,6 +102,12 @@ npm run build      # emits dist/ via tsup
 npm run typecheck
 ```
 
+## Software preservation
+
+Software Heritage snapshot (archived 2026-08-25): [`swh:1:snp:b9946c447fd60f657f0755bf028e1878f6e40874`](https://archive.softwareheritage.org/swh:1:snp:b9946c447fd60f657f0755bf028e1878f6e40874/)
+
+This persistent SWHID identifies the repository snapshot captured on that date; archival does not imply endorsement or validation.
+
 ## License
 
 MIT © Vicky Muller Ferreira, MD

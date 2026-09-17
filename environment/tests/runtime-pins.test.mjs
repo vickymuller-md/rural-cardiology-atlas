@@ -36,7 +36,7 @@ test("runtime manifest and tracked version files carry the exact preregistered p
   assert.deepEqual(tracked, { python: "3.12.12", node: "22.17.0" });
   assert.deepEqual(await validateTrackedLockfiles(MANIFEST, REPOSITORY_ROOT), {
     "scripts/uv.lock": "5f0c837281a80748cc5084bfe70006f4ba7a106cb273fc81f2874255098041f3",
-    "app/package-lock.json": "ebd3ae6323c0cc4046fcccdbfd8a98132614809c29e4575cd2975b9cd1c660e0",
+    "app/package-lock.json": "238f8fd4c76af4cb02fc28101312bab76d3bb50873d8029473944df9fe843530",
     "tooling/topology/package-lock.json":
       "89f33ff6eee602303122263260f8b3bda3222e526dfecc16edd6b9e908278125",
   });

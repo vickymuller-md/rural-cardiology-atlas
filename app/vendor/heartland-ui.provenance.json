@@ -1,24 +1,24 @@
 {
   "package": "@heartland/ui",
-  "version": "0.2.1",
-  "source_commit": "7f80b6d262ad3910fee4d170c7c7477eec47b307",
+  "version": "0.2.4",
+  "source_commit": "70ce68d2557d5dac26c0a40b4c51dd396fdfa7fc",
   "source_repository": "https://github.com/vickymuller-md/heartland-ui",
   "offline_reproduction": {
     "method": "clean git archive; npm ci --offline --ignore-scripts; npm run build; npm pack --ignore-scripts",
     "network_used": false,
-    "pack_filename": "heartland-ui-0.2.1.tgz",
-    "pack_bytes": 12335,
-    "pack_sha1": "a5aea1f2e291af20ade50b5f618c14ead189e295",
-    "pack_sha256": "b833f61bc99b30eca7dfbe556bcd1259bbda02ae5e2504ad1c1a7d2a69c8a198",
-    "pack_integrity": "sha512-So77rwtH6qi9efWeieWEkbvZlCWvieIGoOPyWYLfqgOxK6vhaQ22LCizEUnvjwy+piiECvRlIDi+vODANm8c8g=="
+    "pack_filename": "heartland-ui-0.2.4.tgz",
+    "pack_bytes": 12805,
+    "pack_sha1": "22c22802ba64be9e225ea16d58756a158726625e",
+    "pack_sha256": "9a20c8a8c7ec9ca4a32d87f21c28ac82134c0a4230607910a13b8ac3a664927e",
+    "pack_integrity": "sha512-zmtTvJxETakhmiW41zjEPhbT3LFrg+d9VcvWVIJgLRfzihPfP+B2bMAGWh7rtCPyxrHumwMf0bm2eMs38yMhMQ=="
   },
   "vendored_directory": {
     "dependency_spec": "file:vendor/heartland-ui",
     "tree_manifest": "heartland-ui.tree.jsonl",
     "tree_manifest_bytes": 1175,
-    "tree_manifest_sha256": "66aec86a500e13f91a4a8ea473dcbea0a833ac8b37f8a2d34ba25bdba06f9919",
+    "tree_manifest_sha256": "57b65ad14a01bc0a59305a40dcba90562f285d506b69438a9271ce6b622ef42d",
     "runtime_package_manifest_note": "The vendored package.json removes upstream build scripts and devDependencies so a file: install cannot invoke tsup or expand the app lock. Runtime exports, peer dependencies, package identity, and the exact source commit are retained.",
-    "text_materialization_note": "The actual vendored bytes are authoritative and fully bound by the tree manifest. Relative to the pinned offline pack, four generated JavaScript/source-map files retain the previously recorded terminal LF and five generated JavaScript/source-map/declaration files contain only the approved equal-length protocol DOI replacement. Runtime semantics are unchanged except for the corrected external URL."
+    "text_materialization_note": "The actual vendored bytes are authoritative and fully bound by the tree manifest. Relative to the pinned offline pack the generated JavaScript, source-map, and declaration files are byte-identical; no post-build text edit was applied, because the pinned commit already carries the approved terminology and the published protocol, toolkit, and article identifiers."
   },
   "license": {
     "declared_spdx": "MIT",

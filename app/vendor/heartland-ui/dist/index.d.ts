@@ -76,13 +76,19 @@ interface ColophonProps {
     legal?: ReactNode;
     /** Version label shown at the bottom right. E.g. "v3.2", "v1.0.2". */
     version?: string;
+    /**
+     * Optional archived record of the current site's software (e.g. the App's
+     * Zenodo DOI). Rendered in the Research block so software identity is never
+     * conflated with the Toolkit or the article.
+     */
+    archive?: ColophonLink;
 }
 /**
  * Colophon — uncluttered footer shared across every HEARTLAND site.
  * Editorial font across every surface, matching the canonical layout used
  * on synthetic.heartlandprotocol.org.
  */
-declare function Colophon({ currentSite, extraBlocks, description, legal, version, }: ColophonProps): react_jsx_runtime.JSX.Element;
+declare function Colophon({ currentSite, extraBlocks, description, legal, version, archive, }: ColophonProps): react_jsx_runtime.JSX.Element;
 
 /**
  * HEARTLAND color palette as JS constants.

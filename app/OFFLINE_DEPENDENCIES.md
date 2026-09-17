@@ -6,7 +6,7 @@ verification are separate operations.
 
 `@heartland/ui` no longer resolves through Git, SSH, or GitHub during install.
 It is a local `file:vendor/heartland-ui` dependency built reproducibly from
-commit `7f80b6d262ad3910fee4d170c7c7477eec47b307`. Its offline pack identity and
+commit `70ce68d2557d5dac26c0a40b4c51dd396fdfa7fc`. Its offline pack identity and
 the actual vendored directory tree are recorded in:
 
 - `vendor/heartland-ui.provenance.json`;

@@ -96,14 +96,14 @@ describe("offline @heartland/ui dependency", () => {
       provenance.vendored_directory.tree_manifest_bytes
     );
     expect(provenance.source_commit).toBe(
-      "7f80b6d262ad3910fee4d170c7c7477eec47b307"
+      "70ce68d2557d5dac26c0a40b4c51dd396fdfa7fc"
     );
     expect(provenance.offline_reproduction.network_used).toBe(false);
     expect(provenance.offline_reproduction.pack_sha256).toBe(
-      "b833f61bc99b30eca7dfbe556bcd1259bbda02ae5e2504ad1c1a7d2a69c8a198"
+      "9a20c8a8c7ec9ca4a32d87f21c28ac82134c0a4230607910a13b8ac3a664927e"
     );
     expect(provenance.offline_reproduction.pack_integrity).toBe(
-      "sha512-So77rwtH6qi9efWeieWEkbvZlCWvieIGoOPyWYLfqgOxK6vhaQ22LCizEUnvjwy+piiECvRlIDi+vODANm8c8g=="
+      "sha512-zmtTvJxETakhmiW41zjEPhbT3LFrg+d9VcvWVIJgLRfzihPfP+B2bMAGWh7rtCPyxrHumwMf0bm2eMs38yMhMQ=="
     );
     expect(provenance.license.license_file_present_at_source_commit).toBe(false);
   });

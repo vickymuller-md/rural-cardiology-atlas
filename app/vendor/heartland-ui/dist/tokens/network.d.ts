@@ -18,7 +18,7 @@ declare const HEARTLAND_NETWORK: readonly HeartlandNetworkEntry[];
 declare const HEARTLAND_EXTERNAL_LINKS: {
     readonly zenodo: "https://doi.org/10.5281/zenodo.19101219";
     readonly osf: "https://doi.org/10.17605/OSF.IO/YUSGH";
-    readonly cureus: "https://www.cureus.com/";
+    readonly cureus: "https://doi.org/10.7759/cureus.104817";
     readonly medrxiv: "https://www.medrxiv.org/";
     readonly orcid: "https://orcid.org/0009-0009-1099-5690";
     readonly email: "mailto:vickymuller@heartlandprotocol.org";

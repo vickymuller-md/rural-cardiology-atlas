@@ -27,7 +27,7 @@
       },
       {
         "path": "app/package-lock.json",
-        "sha256": "ebd3ae6323c0cc4046fcccdbfd8a98132614809c29e4575cd2975b9cd1c660e0"
+        "sha256": "238f8fd4c76af4cb02fc28101312bab76d3bb50873d8029473944df9fe843530"
       },
       {
         "path": "tooling/topology/package-lock.json",
